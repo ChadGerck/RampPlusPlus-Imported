@@ -29,6 +29,6 @@ public class SlalomAuto extends SequentialCommandGroup{
         new DriveTo(80),
         new DriveTo(60),
         new WaitCommand(0.2)
-          ); 
+        ); 
     }
 }
