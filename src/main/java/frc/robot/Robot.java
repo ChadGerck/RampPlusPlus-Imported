@@ -94,7 +94,7 @@ public class Robot extends TimedRobot {
 
     
 
-    new BounceAuto().schedule();
+    new SlalomAuto().schedule();
 
   }
 
