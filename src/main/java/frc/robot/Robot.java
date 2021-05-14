@@ -140,5 +140,9 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
 
+  public static void MoveForward(){
+    
+  }
+
 }
 
