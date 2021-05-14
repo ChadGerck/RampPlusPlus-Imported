@@ -65,102 +65,39 @@ public class OI {
         spinCommand.whenActive(new TrenchAuto());
 
         armUp = new Trigger() {
-
-            @Override
-            public boolean get() {
-
-                return xbox.getRawButton(ARM_UP_PORT);
-
-            }
-
+            @Override public boolean get() { return xbox.getRawButton(ARM_UP_PORT); }
         };
 
         armDown = new Trigger() {
-
-            @Override
-            public boolean get() {
-
-                return xbox.getRawButton(ARM_DOWN_PORT);
-
-            }
-
-        };
+            @Override public boolean get() { return xbox.getRawButton(ARM_DOWN_PORT); }
+        }; 
 
         intake = new Trigger() {
-
-            @Override
-            public boolean get() {
-
-                return xbox.getRawButton(INTAKE_PORT);
-
-            }
-
+             @Override public boolean get() { return xbox.getRawButton(INTAKE_PORT); }
         };
 
-        spinTo = new Trigger() {
-
-            @Override
-            public boolean get() {
-
-                return xbox.getRawButton(SPIN_TO_PORT);
-
-            }
-
+        spinTo = new Trigger() { 
+            @Override public boolean get() {return xbox.getRawButton(SPIN_TO_PORT); }
         };
 
         spinThree = new Trigger() {
-
-            @Override
-            public boolean get() {
-
-                return xbox.getRawButton(SPIN_THREE_PORT);
-
-            }
-
+            @Override public boolean get() { return xbox.getRawButton(SPIN_THREE_PORT); }
         };
 
         conveyorPosition = new Trigger() {
-
-            @Override
-            public boolean get() {
-
-                return xbox.getRawButton(CONVEYOR_POSITION_PORT);
-
-            }
-
+            @Override public boolean get() { return xbox.getRawButton(CONVEYOR_POSITION_PORT);}
         };
 
         runBelt = new Trigger() {
-
-            @Override
-            public boolean get() {
-
-                return xbox.getRawAxis(3) > Constants.BELT_DEAD_ZONE || xbox.getRawAxis(2) > Constants.BELT_DEAD_ZONE;
-
-            }
-
+            @Override public boolean get() {return xbox.getRawAxis(3) > Constants.BELT_DEAD_ZONE || xbox.getRawAxis(2) > Constants.BELT_DEAD_ZONE;}
         };
         
         shifter = new Trigger(){
-
-            @Override
-            public boolean get() {
-
-                return wheel.getRawButton(SHIFTER_PORT);
-
-            }
-
+            @Override public boolean get() { return wheel.getRawButton(SHIFTER_PORT);}
         };
 
         limelightState = new Trigger(){
-
-            @Override
-            public boolean get() {
-                
-                return stick.getRawButton(LIMELIGHT_SHIFT_PORT);
-
-            }
-
+            @Override public boolean get() {return stick.getRawButton(LIMELIGHT_SHIFT_PORT); }
         };
 
         armUp.whenActive(new ArmUp());
@@ -172,51 +109,19 @@ public class OI {
         runBelt.whenActive(new ManualBeltControl());
         shifter.whenActive(new Shift());
         limelightState.whenActive(new CommandBase() {
-
-            @Override
-            public void initialize() {
-
-                Limelight.getInstance().switchState();
-
-            }
-
-            @Override
-            public boolean isFinished() {
-                
-                return true;
-
-            }
-            
-        });
-
-    }
+            @Override public void initialize() { Limelight.getInstance().switchState();}
+            @Override public boolean isFinished() { return true; } });
+         }
 
     public static double getDriveHoz() {
-
         if (Math.abs(wheel.getRawAxis(0)) > Constants.WHEEL_DEADZONE) {
-
-            if(wheel.getRawAxis(0) > 0){
-                return -Math.pow(wheel.getRawAxis(0), 2);
-            }else{
-                return Math.pow(wheel.getRawAxis(0), 2);
-            }
-
+            if(wheel.getRawAxis(0) > 0){ return -Math.pow(wheel.getRawAxis(0), 2); }
+            else{ return Math.pow(wheel.getRawAxis(0), 2); }
         }
-
         return 0;
-
     }
 
     public static double getDriveFwd() {
-
-        if (Math.abs(stick.getRawAxis(1)) > Constants.STICK_DEADZONE) {
-            
-            return stick.getRawAxis(1);
-        
-        }
-        
-        return 0;
-
+        if (Math.abs(stick.getRawAxis(1)) > Constants.STICK_DEADZONE) { return stick.getRawAxis(1);}
+        return 0; }
     }
-
-}
