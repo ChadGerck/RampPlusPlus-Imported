@@ -21,13 +21,11 @@ public class SlalomAuto extends SequentialCommandGroup{
 
     public SlalomAuto(){
       super(
-        new DriveTo(50),//forward
-        new DriveTo(50),
-        new DriveTo(20),
+        new DriveTo(70),//forward
+        new DriveTo(70),
         new Spin(180),//turn around
-        new DriveTo(50),//drive forward
-        new DriveTo(50),
-        new DriveTo(20),
+        new DriveTo(70),//drive forward
+        new DriveTo(70),
         new WaitCommand(0.2)
           ); 
     }
