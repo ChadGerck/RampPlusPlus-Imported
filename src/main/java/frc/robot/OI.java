@@ -23,6 +23,7 @@ import frc.robot.Utilities.Limelight;
 
 public class OI {
 
+    private static final double DEADZONE_LIMIT = 0.1;
     private static final int ARM_UP_PORT = 4; //Xbox Y
     private static final int ARM_DOWN_PORT = 3; //Xbox X
     private static final int INTAKE_PORT = 1; //Xbox A
@@ -37,7 +38,7 @@ public class OI {
 
     private static Joystick stick;
     private static Joystick wheel;
-    public static XboxController xbox;
+    public static XboxController xbox,xbox1;
 
     public static Trigger armUp, armDown, intake, spinTo, spinThree, conveyorPosition, runBelt, shifter, limelightState;
 
@@ -53,6 +54,7 @@ public class OI {
         wheel = new Joystick(2);
 
         xbox = new XboxController(0);
+        xbox1 = new XboxController(1);
 
 
         elevUp = new POVButton(xbox, ELEVATOR_UP_ANGLE);
@@ -218,5 +220,11 @@ public class OI {
         return 0;
 
     }
+
+
+    public static double LeftX  (){ double raw = xbox.getRawAxis(0); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
+    public static double LeftY  (){ double raw = xbox.getRawAxis(1); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
+    public static double RightX (){ double raw = xbox.getRawAxis(4); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
+    public static double RightY (){ double raw = xbox.getRawAxis(5); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
 
 }
