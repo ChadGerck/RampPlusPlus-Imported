@@ -227,4 +227,7 @@ public class OI {
     public static double RightX (){ double raw = xbox.getRawAxis(4); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
     public static double RightY (){ double raw = xbox.getRawAxis(5); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
 
+    public double RightArc(){ return Math.toDegrees(Math.atan2(RightY(), RightX())) + 90; }
+    public double LeftArc(){  return Math.toDegrees(Math.atan2(LeftY(), LeftX())) + 90; }
+
 }
