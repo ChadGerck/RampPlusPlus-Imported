@@ -120,8 +120,17 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    double speed1 = 0; 
+    if(OI.YButtonDown()){ speed1 = 1; }
+    else{ speed1 = 0; }
+
+    double speed2 = 0;
+    if(OI.RightBumperDown()){ speed2 = 1; }
+    else{ speed2 = 0; }
+
+
     
-    Drivetrain.getInstance().setSpeed(OI.LeftY(), OI.RightX());
+    Drivetrain.getInstance().setSpeed(speed1, speed2);
     System.out.println(Elevator.getInstance().getEncPos());
 
   }
