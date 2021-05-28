@@ -121,7 +121,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     
-    Drivetrain.getInstance().setSpeed(-OI.LeftX(), 0.5 * OI.RightY());
+    Drivetrain.getInstance().setSpeed(.5*-OI.LeftY(), -OI.RightX());
     System.out.println(Elevator.getInstance().getEncPos());
   }
 
