@@ -19,7 +19,7 @@ import frc.robot.commands.SpinTo;
 import frc.robot.commands.ToggleCommand;
 import frc.robot.commands.ToggleConveyor;
 import frc.robot.Utilities.Limelight;
-
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 public class OI {
 
@@ -228,4 +228,37 @@ public class OI {
     public static double RightY (){ double raw = xbox.getRawAxis(5); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
     public double RightArc(int x){ Remote(x); return Math.toDegrees(Math.atan2(RightY(x), RightX(x))) + 90; }
     public double LeftArc(int x){ Remote(x); return Math.toDegrees(Math.atan2(LeftY(x), LeftX(x))) + 90; }
+    public double RightArc(int x){ Remote(x); return Math.toDegrees(Math.atan2(RightY(x), RightX(x))) + 90; }
+    public double LeftArc(int x){ Remote(x); return Math.toDegrees(Math.atan2(LeftY(x), LeftX(x))) + 90; }
+    
+    public double getLeftJoystickAngle(int x){ Remote(x); return Math.toDegrees(Math.atan2(control.getRawAxis(0), -control.getRawAxis(1))); }
+    public double LeftMag (int x){ Remote(x); return Math.hypot(control.getRawAxis(1), control.getRawAxis(0)); }
+    public double RightMag(int x){ Remote(x); return Math.hypot(control.getRawAxis(4), control.getRawAxis(5)); }
+
+    public double LeftX  (int x){ Remote(x); double raw = control.getRawAxis(0); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
+    public double LeftY  (int x){ Remote(x); double raw = control.getRawAxis(1); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
+    public double RightX (int x){ Remote(x); double raw = control.getRawAxis(4); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
+    public double RightY (int x){ Remote(x); double raw = control.getRawAxis(5); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
+    public double LeftTrigger (int x){ Remote(x); double raw = control.getRawAxis(2); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
+    public double RightTrigger(int x){ Remote(x); double raw = control.getRawAxis(3); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
+    
+    public boolean LeftBumper     (){  return xbox.getBumperPressed(Hand.kLeft); }
+    public boolean LeftBumperDown (){  return xbox.getBumper(Hand.kLeft); }
+    public boolean RightBumper    (){  return xbox.getBumperPressed(Hand.kRight); }
+    public boolean RightBumperDown(){  return xbox.getBumper(Hand.kRight); }
+    public boolean AButton        (){  return xbox.getAButtonPressed(); }
+    public boolean AButtonDown    (){  return xbox.getAButton(); }
+    public boolean BButton        (){  return xbox.getBButtonPressed(); }
+    public boolean BButtonDown    (){  return xbox.getBButton(); }
+    public boolean XButton        (){  return xbox.getXButtonPressed(); }
+    public boolean XButtonDown    (){  return xbox.getXButton(); }
+    public boolean YButton        (){  return xbox.getYButtonPressed(); }
+    public boolean YButtonDown    (){  return xbox.getYButton(); }
+    public boolean StartButton    (){  return xbox.getStartButtonPressed(); }
+    public boolean BackButton     (){  return xbox.getRawButtonPressed(7); }
+    public boolean LSClick        (){  return xbox.getStickButtonPressed(Hand.kLeft); }
+    public boolean RSClick        (){  return xbox.getStickButtonPressed(Hand.kRight); }
+    public boolean LSClickDown    (){  return xbox.getStickButton(Hand.kLeft); }
+    public boolean RSClickDown    (){  return xbox.getStickButton(Hand.kRight); }
+    public double  Dpad           (){  return xbox.getPOV(); }
 }
