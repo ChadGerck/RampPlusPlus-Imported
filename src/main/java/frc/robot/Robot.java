@@ -30,6 +30,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
+  
+  public static final Drivetrain tank = new Drivetrain();
 
  // private RobotContainer m_robotContainer;
   SendableChooser<SequentialCommandGroup> autoChooser;

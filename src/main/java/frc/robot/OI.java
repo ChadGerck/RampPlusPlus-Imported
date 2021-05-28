@@ -195,34 +195,6 @@ public class OI {
 
     }
 
-    public static double getDriveHoz() {
-
-        if (Math.abs(wheel.getRawAxis(0)) > Constants.WHEEL_DEADZONE) {
-
-            if(wheel.getRawAxis(0) > 0){
-                return -Math.pow(wheel.getRawAxis(0), 2);
-            }else{
-                return Math.pow(wheel.getRawAxis(0), 2);
-            }
-
-        }
-
-        return 0;
-
-    }
-
-    public static double getDriveFwd() {
-
-        if (Math.abs(stick.getRawAxis(1)) > Constants.STICK_DEADZONE) {
-            
-            return stick.getRawAxis(1);
-        
-        }
-        
-        return 0;
-
-    }
-
 
     public static double LeftX  (){ double raw = xbox.getRawAxis(0); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
     public static double LeftY  (){ double raw = xbox.getRawAxis(1); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }

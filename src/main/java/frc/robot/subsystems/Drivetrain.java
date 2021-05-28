@@ -42,7 +42,7 @@ public class Drivetrain extends PIDSubsystem {
     return instance;
   }
 
-  private Drivetrain() {
+  public Drivetrain() {
     super(new PIDController(Constants.DRIVE_P, Constants.DRIVE_I, Constants.DRIVE_D));
 
     zero();
