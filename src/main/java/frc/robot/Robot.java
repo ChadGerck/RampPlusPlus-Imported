@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
   }
   @Override public void robotPeriodic() { CommandScheduler.getInstance().run(); }
   @Override public void disabledInit() { Drivetrain.getInstance().disable(); }
-  @Override public void disabledPeriodic() { }
+  @Override public void disabledPeriodic() {}
   @Override public void autonomousInit() {
     CommandScheduler.getInstance().cancelAll();
     Drivetrain.getInstance().setLeftReverse(false);
@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
     Limelight.getInstance().turnOff();
     new BounceAuto().schedule();
   }
-  @Override public void autonomousPeriodic() { }
+  @Override public void autonomousPeriodic() {}
   @Override public void teleopInit() {
     CommandScheduler.getInstance().cancelAll();
     Drivetrain.getInstance().setLeftReverse(false);
@@ -53,6 +53,6 @@ public class Robot extends TimedRobot {
     System.out.println(Elevator.getInstance().getEncPos());
   }
   @Override public void testInit() { CommandScheduler.getInstance().cancelAll(); }
-  @Override public void testPeriodic() { }
+  @Override public void testPeriodic() {}
 }
 
