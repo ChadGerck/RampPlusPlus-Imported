@@ -1,5 +1,4 @@
 package frc.robot;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -73,10 +72,8 @@ public class OI {
     public static double getLeftJoystickAngle() {  return Math.toDegrees(Math.atan2(xbox.getRawAxis(0), -xbox.getRawAxis(1))); }
     public static double LeftMag()  { return Math.hypot(xbox.getRawAxis(1), xbox.getRawAxis(0)); }
     public static double RightMag() { return Math.hypot(xbox.getRawAxis(4), xbox.getRawAxis(5)); }
-    
     public static double LeftTrigger() { double raw = xbox.getRawAxis(2); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
     public static double RightTrigger() { double raw = xbox.getRawAxis(3); return Math.abs(raw) < DEADZONE_LIMIT ? 0.0 : raw; }
-    
     public static boolean LeftBumper()     { return xbox.getBumperPressed(Hand.kLeft); }
     public static boolean LeftBumperDown() { return xbox.getBumper(Hand.kLeft); }
     public static boolean RightBumper()    { return xbox.getBumperPressed(Hand.kRight); }
