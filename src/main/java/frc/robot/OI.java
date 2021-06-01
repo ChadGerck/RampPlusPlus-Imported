@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 public class OI {
     private static final double DEADZONE_LIMIT = 0.1;
-    
     private static final int ELEVATOR_UP_ANGLE = 0; //Xbox DPad Up
     private static final int ELEVATOR_DOWN_ANGLE = 180; //Xbox DPad Down
 
