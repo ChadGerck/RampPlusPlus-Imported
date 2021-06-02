@@ -53,8 +53,8 @@ public class OI {
         armDown.whenActive(new ArmDown());
         intake.whenActive(new RunIntake());
         spinTo.whenActive(new ToggleCommand(SpinTo.getInstance()));
-        spin3.whenActive(new ToggleCommand(Rotation.getInstance()));
-        convPos.whenActive(new ToggleConveyor());
+        //spin3.whenActive(new ToggleCommand(Rotation.getInstance()));
+        //convPos.whenActive(new ToggleConveyor());
         shifter.whenActive(new Shift());
         runBelt.whenActive(new ManualBeltControl());
         llState.whenActive(new CommandBase() {
