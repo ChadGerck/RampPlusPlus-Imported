@@ -49,7 +49,7 @@ public class Robot extends TimedRobot {
     Intake.getInstance().run(Constants.INTAKE_REVERSE_SPEED);
   }
   @Override public void teleopPeriodic() {
-    Drivetrain.getInstance().setSpeed(OI.LeftY(), OI.RightX());
+    Drivetrain.getInstance().setSpeed(OI.LeftY(), -OI.RightX());
     System.out.println(Elevator.getInstance().getEncPos());
   }
   @Override public void testInit() { CommandScheduler.getInstance().cancelAll(); }
