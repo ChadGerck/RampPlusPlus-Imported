@@ -14,5 +14,5 @@ public class NavX {
     }
     public void zeroAngle(){ angularZero = navx.getAngle(); }
     public double getHeading(){ return ((-(navx.getAngle()-angularZero)%360)*Math.PI)/180; }
-    public static double getHeadingDeg(){ return -(navx.getAngle()-angularZero)%360; }
+    public static double getHeadingDeg(){ return (navx.getAngle()-angularZero)%360; }
 }
