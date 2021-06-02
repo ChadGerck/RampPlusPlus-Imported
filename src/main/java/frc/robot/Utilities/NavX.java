@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DriverStation;
 
 public class NavX {
-    AHRS navx;
-    double angularZero;
+    static AHRS navx;
+    static double angularZero;
     private static NavX in;
     public static NavX getInstance(){if(in==null)in=new NavX();return in;}
     private NavX(){
@@ -14,5 +14,5 @@ public class NavX {
     }
     public void zeroAngle(){ angularZero = navx.getAngle(); }
     public double getHeading(){ return ((-(navx.getAngle()-angularZero)%360)*Math.PI)/180; }
-    public double getHeadingDeg(){ return -(navx.getAngle()-angularZero)%360; }
+    public static double getHeadingDeg(){ return -(navx.getAngle()-angularZero)%360; }
 }

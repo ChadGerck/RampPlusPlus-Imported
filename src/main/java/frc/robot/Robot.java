@@ -12,6 +12,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
+import frc.robot.Utilities.NavX;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -51,6 +52,8 @@ public class Robot extends TimedRobot {
   @Override public void teleopPeriodic() {
     Drivetrain.getInstance().setSpeed(OI.LeftY(), -OI.RightX());
     System.out.println(Elevator.getInstance().getEncPos());
+    SmartDashboard.putNumber("heading", NavX.getHeadingDeg());
+
   }
   @Override public void testInit() { CommandScheduler.getInstance().cancelAll(); }
   @Override public void testPeriodic() {}
