@@ -50,6 +50,7 @@ public class Robot extends TimedRobot {
   }
   @Override public void teleopPeriodic() {
     Drivetrain.getInstance().setSpeed(OI.LeftY(), OI.RightX());
+    Elevator.getInstance().set(0.2*OI.LeftTrigger()); 
     System.out.println(Elevator.getInstance().getEncPos());
   }
   @Override public void testInit() { CommandScheduler.getInstance().cancelAll(); }
