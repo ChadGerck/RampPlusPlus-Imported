@@ -52,6 +52,41 @@ public class Robot extends TimedRobot {
     Drivetrain.getInstance().setSpeed(OI.LeftY(), -OI.RightX());
     System.out.println(Elevator.getInstance().getEncPos());
   }
+  /*
+  public static void MoveDistance(double angle, double speed, double distance) { 
+		
+		double distanceL = Drivetrain.getInstance().getLeftPosition();
+		double distanceR = Drivetrain.getInstance().getLeftPosition();
+		double avgDistance = 0; 
+		double distanceDone = ((Robot.encoderL.getDistance()) + (Robot.encoderR.getDistance()))/2;
+		double templ = speed; 
+		double tempr = speed; 
+		
+		while(!tele && avgDistance < distance ) {
+			SmartDashboard.putNumber("Gyro: ", GyroAngle());
+			distanceL = Robot.encoderL.getDistance();
+			distanceR = Robot.encoderR.getDistance();
+			SmartDashboard.putNumber("DistanceL: ", distanceL);
+			SmartDashboard.putNumber("DistanceR: ", distanceR);
+			Drivetrain.getInstance().setRaw(templ, tempr);
+			if(Math.sin(Math.toRadians(GyroAngle()+angle)) < -.01) {
+				if(templ < speed + .05) { templ += .001;  }
+				else { templ -= .001; tempr -= .002; }
+			}else if(Math.sin(Math.toRadians(GyroAngle()+angle)) > .01 ) {
+				if(tempr < speed + .05) { tempr += .001; }
+				else { tempr -= .001; templ -= .002; } 
+			}else {
+				templ = speed; 
+				tempr = speed; 
+			}
+			try{Thread.sleep(20);}catch(InterruptedException e){e.printStackTrace();}
+			avgDistance = (((Robot.encoderL.getDistance()) + (Robot.encoderR.getDistance()))/2)-distanceDone;
+			System.out.println(avgDistance); 
+			
+		}  
+		drivetrain.setRaw(0, 0, 0); 
+  }
+  */
   @Override public void testInit() { CommandScheduler.getInstance().cancelAll(); }
   @Override public void testPeriodic() {}
 }

@@ -43,6 +43,7 @@ public class Drivetrain extends PIDSubsystem {
   @Override public void periodic(){super.periodic();}
   public void setSpeed(final double xSpeed, final double zRotation){drive.arcadeDrive(xSpeed, zRotation);}
   public void driveForward(double speed){ leftMaster.set(speed); rightMaster.set(speed);}
+  public void setRaw(double leftValue, double rightValue){ leftMaster.set(leftValue); rightMaster.set(rightValue); }
   public double getLeftPosition(){return leftMaster.getEncoder().getPosition();}
   public double getRightPosition(){return rightMaster.getEncoder().getPosition();}
   public void zero(){ leftMaster.getEncoder().setPosition(0); rightMaster.getEncoder().setPosition(0);}
