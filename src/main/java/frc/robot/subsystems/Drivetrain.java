@@ -11,12 +11,8 @@ import frc.robot.Constants;
 import frc.robot.RobotMap;
 
 public class Drivetrain extends PIDSubsystem {
-  private final CANSparkMax leftMaster = new CANSparkMax(RobotMap.leftMaster , MotorType.kBrushless);
-  private final CANSparkMax leftSlaveA = new CANSparkMax(RobotMap.leftSlaveA , MotorType.kBrushless);
-  private final CANSparkMax leftSlaveB = new CANSparkMax(RobotMap.leftSlaveB , MotorType.kBrushless);
-  private final CANSparkMax rightMaster= new CANSparkMax(RobotMap.rightMaster, MotorType.kBrushless);
-  private final CANSparkMax rightSlaveA= new CANSparkMax(RobotMap.rightSlaveA, MotorType.kBrushless);
-  private final CANSparkMax rightSlaveB= new CANSparkMax(RobotMap.rightSlaveB, MotorType.kBrushless);
+  private final CANSparkMax leftMaster ,leftSlaveA ,leftSlaveB;
+  private final CANSparkMax rightMaster,rightSlaveA,rightSlaveB;
   private final DoubleSolenoid shift = new DoubleSolenoid(RobotMap.shiftHigh, RobotMap.shiftLow);
   private boolean isHigh;
   private final DifferentialDrive drive;
@@ -24,6 +20,12 @@ public class Drivetrain extends PIDSubsystem {
   public static Drivetrain getInstance(){if(in==null)in=new Drivetrain();return in;}
   private Drivetrain() {
     super(new PIDController(Constants.DRIVE_P, Constants.DRIVE_I, Constants.DRIVE_D));
+    leftMaster = new CANSparkMax(RobotMap.leftMaster , MotorType.kBrushless);
+    leftSlaveA = new CANSparkMax(RobotMap.leftSlaveA , MotorType.kBrushless);
+    leftSlaveB = new CANSparkMax(RobotMap.leftSlaveB , MotorType.kBrushless);
+    rightMaster= new CANSparkMax(RobotMap.rightMaster, MotorType.kBrushless);
+    rightSlaveA= new CANSparkMax(RobotMap.rightSlaveA, MotorType.kBrushless);
+    rightSlaveB= new CANSparkMax(RobotMap.rightSlaveB, MotorType.kBrushless);
     zero();
     setSetpoint(0);
     leftSlaveA .follow(leftMaster );leftSlaveB .follow(leftMaster );
@@ -35,7 +37,7 @@ public class Drivetrain extends PIDSubsystem {
     disable();
   }
   public void setLeftReverse(boolean reverse){leftMaster.setInverted(reverse);}
-   public void shift(){
+  public void shift(){
     if(isHigh)shift.set(Value.kForward);
      else shift.set(Value.kReverse);
      isHigh = !isHigh;
@@ -44,8 +46,10 @@ public class Drivetrain extends PIDSubsystem {
   public void setSpeed(final double xSpeed, final double zRotation){drive.arcadeDrive(xSpeed, zRotation);}
   public void driveForward(double speed){ leftMaster.set(speed); rightMaster.set(speed);}
   public void setRaw(double leftValue, double rightValue){ leftMaster.set(leftValue); rightMaster.set(rightValue); }
-  public double getLeftPosition(){return leftMaster.getEncoder().getPosition();}
+  public double getLeftPosition(){return -leftMaster.getEncoder().getPosition();}
+  public double getLeftDistance(){return -leftMaster.getEncoder().getPosition()/6.46;}
   public double getRightPosition(){return rightMaster.getEncoder().getPosition();}
+  public double getRightDistance(){return rightMaster.getEncoder().getPosition()/6.46;} 
   public void zero(){ leftMaster.getEncoder().setPosition(0); rightMaster.getEncoder().setPosition(0);}
   @Override protected double getMeasurement() {return rightMaster.getEncoder().getPosition();}
   @Override protected void useOutput(double output, final double setpoint) {

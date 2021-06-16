@@ -50,22 +50,24 @@ public class Robot extends TimedRobot {
   }
   @Override public void teleopPeriodic() {
     Drivetrain.getInstance().setSpeed(OI.LeftY(), -OI.RightX());
+    SmartDashboard.putNumber("DistanceL", Drivetrain.getInstance().getLeftDistance());
+    SmartDashboard.putNumber("DistanceR", Drivetrain.getInstance().getRightDistance()); 
     System.out.println(Elevator.getInstance().getEncPos());
   }
   /*
   public static void MoveDistance(double angle, double speed, double distance) { 
 		
-		double distanceL = Drivetrain.getInstance().getLeftPosition();
-		double distanceR = Drivetrain.getInstance().getLeftPosition();
+		double distanceL = Drivetrain.getInstance().getLeftDistance();
+		double distanceR = Drivetrain.getInstance().getRightDistance();
 		double avgDistance = 0; 
-		double distanceDone = ((Robot.encoderL.getDistance()) + (Robot.encoderR.getDistance()))/2;
+		double distanceDone = (distanceL) + (distanceR))/2;
 		double templ = speed; 
 		double tempr = speed; 
 		
-		while(!tele && avgDistance < distance ) {
+		while(avgDistance < distance ) {
 			SmartDashboard.putNumber("Gyro: ", GyroAngle());
-			distanceL = Robot.encoderL.getDistance();
-			distanceR = Robot.encoderR.getDistance();
+			distanceL = Drivetrain.getInstance().getLeftDistance();
+			distanceR = Drivetrain.getInstance().getRightDistance();
 			SmartDashboard.putNumber("DistanceL: ", distanceL);
 			SmartDashboard.putNumber("DistanceR: ", distanceR);
 			Drivetrain.getInstance().setRaw(templ, tempr);
@@ -80,13 +82,14 @@ public class Robot extends TimedRobot {
 				tempr = speed; 
 			}
 			try{Thread.sleep(20);}catch(InterruptedException e){e.printStackTrace();}
-			avgDistance = (((Robot.encoderL.getDistance()) + (Robot.encoderR.getDistance()))/2)-distanceDone;
+			avgDistance = ((Drivetrain.getInstance().getLeftDistance()) + (Drivetrain.getInstance().getRightDistance())/2)-distanceDone;
 			System.out.println(avgDistance); 
 			
 		}  
 		drivetrain.setRaw(0, 0, 0); 
   }
   */
+  
   @Override public void testInit() { CommandScheduler.getInstance().cancelAll(); }
   @Override public void testPeriodic() {}
 }
