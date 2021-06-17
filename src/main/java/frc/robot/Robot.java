@@ -6,6 +6,7 @@ import frc.robot.Utilities.Limelight;
 import frc.robot.Utilities.NavX;
 //import frc.robot.auto_commands.BarrelRacingAuto;
 import frc.robot.auto_commands.BounceAuto;
+import frc.robot.auto_commands.NewAutonomous;
 import frc.robot.auto_commands.SlalomAuto;
 //import frc.robot.auto_commands.TrenchAuto;
 import frc.robot.subsystems.Arm;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
   // private RobotContainer m_robotContainer;
+  public static double distanceDone = 0; 
   SendableChooser<SequentialCommandGroup> autoChooser;
   @Override public void robotInit() {
     Limelight.getInstance().turnOff();
@@ -40,7 +42,8 @@ public class Robot extends TimedRobot {
     Drivetrain.getInstance().zero();
     Limelight.getInstance().turnOff();
     //new BounceAuto().schedule();
-    Autonomous.Auto();
+    //Autonomous.Auto();
+    new NewAutonomous().schedule();
   }
   @Override public void autonomousPeriodic() {}
   @Override public void teleopInit() {
@@ -51,8 +54,8 @@ public class Robot extends TimedRobot {
   }
   @Override public void teleopPeriodic() {
     Drivetrain.getInstance().setSpeed(OI.LeftY(), -OI.RightX());
-    SmartDashboard.putNumber("DistanceL", Drivetrain.getInstance().getLeftDistance());
-    SmartDashboard.putNumber("DistanceR", Drivetrain.getInstance().getRightDistance()); 
+    //SmartDashboard.putNumber("DistanceL", Drivetrain.getInstance().getLeftDistance());
+    //SmartDashboard.putNumber("DistanceR", Drivetrain.getInstance().getRightDistance()); 
     System.out.println(Elevator.getInstance().getEncPos());
   }
   
@@ -71,7 +74,8 @@ public class Robot extends TimedRobot {
 			distanceR = Drivetrain.getInstance().getRightDistance();
 			SmartDashboard.putNumber("DistanceL: ", distanceL);
 			SmartDashboard.putNumber("DistanceR: ", distanceR);
-			Drivetrain.getInstance().setRaw(templ, tempr);
+      Drivetrain.getInstance().setRaw(templ, tempr);
+      /*
 			if(Math.sin(Math.toRadians(NavX.getInstance().Angle()+angle)) < -.01) {
 				if(templ < speed + .05) { templ += .001;  }
 				else { templ -= .001; tempr -= .002; }
@@ -81,7 +85,8 @@ public class Robot extends TimedRobot {
 			}else {
 				templ = speed; 
 				tempr = speed; 
-			}
+      }
+      */
 			try{Thread.sleep(20);}catch(InterruptedException e){e.printStackTrace();}
 			avgDistance = ((Drivetrain.getInstance().getLeftDistance()) + (Drivetrain.getInstance().getRightDistance())/2)-distanceDone;
 			System.out.println(avgDistance); 
