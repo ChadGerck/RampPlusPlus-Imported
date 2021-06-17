@@ -39,7 +39,8 @@ public class Robot extends TimedRobot {
     NavX.getInstance().zeroAngle();
     Drivetrain.getInstance().zero();
     Limelight.getInstance().turnOff();
-    new BounceAuto().schedule();
+    //new BounceAuto().schedule();
+    Autonomous.Auto();
   }
   @Override public void autonomousPeriodic() {}
   @Override public void teleopInit() {
