@@ -13,9 +13,10 @@ public class MoveDistance extends CommandBase {
   double degree, velocity, position; 
   double distanceL, distanceR, avgDistance, distanceDone, templ, tempr;
   boolean forceFinish;
+  public MoveDistance(){position = 1; velocity = .25; degree = 0; }
   public MoveDistance(double feet){position = feet;}
   public MoveDistance(double angle, double speed, double distance){
-    position = distance; velocity = speed; angle = degree; avgDistance=0; forceFinish = false; 
+    position = distance; velocity = speed; degree = angle; avgDistance=0; forceFinish = false; 
   }
   @Override public void initialize() {
     //forceFinish = false;
@@ -27,7 +28,7 @@ public class MoveDistance extends CommandBase {
     //SmartDashboard.putNumber("DistanceDone: ", distanceDone);
     //templ = velocity; 
     //tempr = velocity; 
-    //Drivetrain.getInstance().zero();
+    Drivetrain.getInstance().zero();
     //Drivetrain.getInstance().setSetpoint(position);
     //Drivetrain.getInstance().enable();
     //previousPos = Drivetrain.getInstance().getRightPosition();
@@ -40,9 +41,6 @@ public class MoveDistance extends CommandBase {
     distanceR = Drivetrain.getInstance().getRightDistance();
     SmartDashboard.putNumber("DistanceL: ", distanceL);
     SmartDashboard.putNumber("DistanceR: ", distanceR);
-    SmartDashboard.putNumber("Degree: ", degree);
-    SmartDashboard.putNumber("Velocity: ", velocity);
-    SmartDashboard.putNumber("Position: ", position);
     Drivetrain.getInstance().setRaw(templ, tempr);
     /*
     if(Math.sin(Math.toRadians(NavX.getInstance().Angle()+angle)) < -.01) {
@@ -56,14 +54,9 @@ public class MoveDistance extends CommandBase {
         tempr = speed; 
     }
     */
-    avgDistance = ((Drivetrain.getInstance().getLeftDistance() + Drivetrain.getInstance().getRightDistance())/2)-Robot.distanceDone;
+    avgDistance = ((Drivetrain.getInstance().getLeftDistance() + Drivetrain.getInstance().getRightDistance())/2);
     SmartDashboard.putNumber("AverageDistance: ", avgDistance);
-    SmartDashboard.putNumber("DistanceDone: ", Robot.distanceDone);
-    if(avgDistance > position){
-        Robot.distanceDone = avgDistance;
-        //SmartDashboard.putNumber("DistanceDone: ", Robot.distanceDone);
-        forceFinish = true;
-    }
+    if(avgDistance > position){ forceFinish = true; }
     
       /*
     if(Drivetrain.getInstance().getRightPosition() != previousPos){ffTimer = Timer.getFPGATimestamp();}
@@ -74,48 +67,9 @@ public class MoveDistance extends CommandBase {
     previousPos = Drivetrain.getInstance().getRightPosition();
     */
   }
-  public static void MoveFeet(double angle, double speed, double distance) { 
-		
-    double distanceL = Drivetrain.getInstance().getLeftDistance();
-    double distanceR = Drivetrain.getInstance().getRightDistance();
-    double avgDistance = 0; 
-    double distanceDone = (distanceL+distanceR)/2;
-    double templ = speed; 
-    double tempr = speed; 
-    
-    while(avgDistance < distance ) {
-        SmartDashboard.putNumber("Gyro: ", NavX.getInstance().Angle());
-        distanceL = Drivetrain.getInstance().getLeftDistance();
-        distanceR = Drivetrain.getInstance().getRightDistance();
-        SmartDashboard.putNumber("DistanceL: ", distanceL);
-        SmartDashboard.putNumber("DistanceR: ", distanceR);
-        Drivetrain.getInstance().setRaw(templ, tempr);
-        /*
-        if(Math.sin(Math.toRadians(NavX.getInstance().Angle()+angle)) < -.01) {
-            if(templ < speed + .05) { templ += .001;  }
-            else { templ -= .001; tempr -= .002; }
-        }else if(Math.sin(Math.toRadians(NavX.getInstance().Angle()+angle)) > .01 ) {
-            if(tempr < speed + .05) { tempr += .001; }
-            else { tempr -= .001; templ -= .002; } 
-        }else {
-            templ = speed; 
-            tempr = speed; 
-        }
-        */
-        try{Thread.sleep(20);}catch(InterruptedException e){e.printStackTrace();}
-        avgDistance = ((Drivetrain.getInstance().getLeftDistance()) + (Drivetrain.getInstance().getRightDistance())/2)-distanceDone;
-        System.out.println(avgDistance); 
-        
-    }  
-    Drivetrain.getInstance().setRaw(0, 0); 
-}
-/*public static void MoveForward(){
-MoveDistance(NavX.getInstance().Angle(), .25, 1);
-}
-*/
   @Override public void end(boolean interrupted) {
     Drivetrain.getInstance().disable();
-    Drivetrain.getInstance().setSpeed(0, 0);
+    Drivetrain.getInstance().setRaw(0, 0);
   }
   @Override public boolean isFinished(){return  forceFinish;}
 }

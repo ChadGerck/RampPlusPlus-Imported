@@ -7,9 +7,10 @@ import frc.robot.Robot;
 public class NewAutonomous extends SequentialCommandGroup{
     public NewAutonomous(){
         super(
-            new MoveDistance(0, .25, 4),
-            new MoveDistance(0, .1, 5), 
-            new MoveDistance(0, .5, 6)
+            //new MoveDistance(0,.5,5),
+            new MoveDistance(0,.5,3),
+            new TurnTo(-90),
+            new MoveDistance(-90,.5,3)
         );
     }
 }

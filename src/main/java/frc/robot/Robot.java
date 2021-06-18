@@ -57,6 +57,7 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putNumber("DistanceL", Drivetrain.getInstance().getLeftDistance());
     //SmartDashboard.putNumber("DistanceR", Drivetrain.getInstance().getRightDistance()); 
     System.out.println(Elevator.getInstance().getEncPos());
+    SmartDashboard.putNumber("NavX: ", NavX.getInstance().Angle());
   }
   
   public static void MoveDistance(double angle, double speed, double distance) { 

@@ -12,7 +12,9 @@ public class NavX {
         catch (RuntimeException ex) { DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true); }
     }
     public void zeroAngle(){ navx.reset();  }
-    public double getHeading(){ return ((-(navx.getAngle())%360)*Math.PI)/180; }
+    public double getHeading(){ return (((navx.getAngle())%360)*Math.PI)/180; }
     public double Angle(){ return Angle(0); }
-    public double Angle(double add){ return -(navx.getAngle()+add)%360; }
+    public double Angle(double add){ double angle = navx.getAngle()+add;
+        while(angle>180)angle-=360;while(angle<-180)angle+=360;return angle;
+    }
 }
