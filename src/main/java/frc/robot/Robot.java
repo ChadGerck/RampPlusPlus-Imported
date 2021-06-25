@@ -17,12 +17,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
-  // private RobotContainer m_robotContainer;
+  
+  public static final Drivetrain Drivetrain = new Drivetrain();
   public static double distanceDone = 0; 
   SendableChooser<SequentialCommandGroup> autoChooser;
   @Override public void robotInit() {
     Limelight.getInstance().turnOff();
-    new OI();
     new Constants();
     Arm.getInstance().zeroArmEnc();
     //Elevator.getInstance().setEncoderZero();
@@ -33,13 +33,13 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("AUTO PICK", autoChooser);
   }
   @Override public void robotPeriodic() { CommandScheduler.getInstance().run(); }
-  @Override public void disabledInit() { Drivetrain.getInstance().disable(); }
+  @Override public void disabledInit() { Drivetrain.disable(); }
   @Override public void disabledPeriodic() {}
   @Override public void autonomousInit() {
     CommandScheduler.getInstance().cancelAll();
-    Drivetrain.getInstance().setLeftReverse(false);
+    Drivetrain.setLeftReverse(false);
     NavX.getInstance().zeroAngle();
-    Drivetrain.getInstance().zero();
+    Drivetrain.zero();
     Limelight.getInstance().turnOff();
     //new BounceAuto().schedule();
     //Autonomous.Auto();
@@ -48,22 +48,20 @@ public class Robot extends TimedRobot {
   @Override public void autonomousPeriodic() {}
   @Override public void teleopInit() {
     CommandScheduler.getInstance().cancelAll();
-    Drivetrain.getInstance().setLeftReverse(false);
+    Drivetrain.setLeftReverse(false);
     NavX.getInstance().zeroAngle();
     Intake.getInstance().run(Constants.INTAKE_REVERSE_SPEED);
   }
   @Override public void teleopPeriodic() {
-    Drivetrain.getInstance().setSpeed(OI.LeftY(), -OI.RightX());
-    //SmartDashboard.putNumber("DistanceL", Drivetrain.getInstance().getLeftDistance());
-    //SmartDashboard.putNumber("DistanceR", Drivetrain.getInstance().getRightDistance()); 
+    Drivetrain.setSpeed(OI.LeftY(), -OI.RightX());
     System.out.println(Elevator.getInstance().getEncPos());
     SmartDashboard.putNumber("NavX: ", NavX.getInstance().Angle());
   }
   
   public static void MoveDistance(double angle, double speed, double distance) { 
 		
-		double distanceL = Drivetrain.getInstance().getLeftDistance();
-		double distanceR = Drivetrain.getInstance().getRightDistance();
+		double distanceL = Drivetrain.getLeftDistance();
+		double distanceR = Drivetrain.getRightDistance();
 		double avgDistance = 0; 
 		double distanceDone = (distanceL+distanceR)/2;
 		double templ = speed; 
@@ -71,11 +69,11 @@ public class Robot extends TimedRobot {
 		
 		while(avgDistance < distance ) {
 			SmartDashboard.putNumber("Gyro: ", NavX.getInstance().Angle());
-			distanceL = Drivetrain.getInstance().getLeftDistance();
-			distanceR = Drivetrain.getInstance().getRightDistance();
+			distanceL = Drivetrain.getLeftDistance();
+			distanceR = Drivetrain.getRightDistance();
 			SmartDashboard.putNumber("DistanceL: ", distanceL);
 			SmartDashboard.putNumber("DistanceR: ", distanceR);
-      Drivetrain.getInstance().setRaw(templ, tempr);
+      Drivetrain.setRaw(templ, tempr);
       /*
 			if(Math.sin(Math.toRadians(NavX.getInstance().Angle()+angle)) < -.01) {
 				if(templ < speed + .05) { templ += .001;  }
@@ -89,11 +87,11 @@ public class Robot extends TimedRobot {
       }
       */
 			try{Thread.sleep(20);}catch(InterruptedException e){e.printStackTrace();}
-			avgDistance = ((Drivetrain.getInstance().getLeftDistance()) + (Drivetrain.getInstance().getRightDistance())/2)-distanceDone;
+			avgDistance = ((Drivetrain.getLeftDistance()) + (Drivetrain.getRightDistance())/2)-distanceDone;
 			System.out.println(avgDistance); 
 			
 		}  
-		Drivetrain.getInstance().setRaw(0, 0); 
+		Drivetrain.setRaw(0, 0); 
   }
   public static void MoveForward(){
     MoveDistance(NavX.getInstance().Angle(), .25, 1);

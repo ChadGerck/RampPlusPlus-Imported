@@ -28,7 +28,7 @@ public class MoveDistance extends CommandBase {
     //SmartDashboard.putNumber("DistanceDone: ", distanceDone);
     //templ = velocity; 
     //tempr = velocity; 
-    Drivetrain.getInstance().zero();
+    Drivetrain.zero();
     //Drivetrain.getInstance().setSetpoint(position);
     //Drivetrain.getInstance().enable();
     //previousPos = Drivetrain.getInstance().getRightPosition();

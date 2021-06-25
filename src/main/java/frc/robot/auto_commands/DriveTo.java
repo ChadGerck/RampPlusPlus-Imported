@@ -11,9 +11,9 @@ public class DriveTo extends CommandBase {
   @Override public void initialize() {
     forceFinish = false;
     ffTimer = Timer.getFPGATimestamp();
-    Drivetrain.getInstance().zero();
-    Drivetrain.getInstance().setSetpoint(position);
-    Drivetrain.getInstance().enable();
+    Drivetrain.zero();
+    Drivetrain.setSetpoint(position);
+    Drivetrain.enable();
     previousPos = Drivetrain.getInstance().getRightPosition();
   }
   @Override public void execute() {

@@ -11,14 +11,12 @@ import frc.robot.Constants;
 import frc.robot.RobotMap;
 
 public class Drivetrain extends PIDSubsystem {
-  private final CANSparkMax leftMaster ,leftSlaveA ,leftSlaveB;
-  private final CANSparkMax rightMaster,rightSlaveA,rightSlaveB;
-  private final DoubleSolenoid shift = new DoubleSolenoid(RobotMap.shiftHigh, RobotMap.shiftLow);
-  private boolean isHigh;
+  private static CANSparkMax leftMaster ,leftSlaveA ,leftSlaveB;
+  private static CANSparkMax rightMaster,rightSlaveA,rightSlaveB;
+  private static DoubleSolenoid shift = new DoubleSolenoid(RobotMap.shiftHigh, RobotMap.shiftLow);
+  private static boolean isHigh;
   private final DifferentialDrive drive;
-  private static Drivetrain in;
-  public static Drivetrain getInstance(){if(in==null)in=new Drivetrain();return in;}
-  private Drivetrain() {
+  public Drivetrain() {
     super(new PIDController(Constants.DRIVE_P, Constants.DRIVE_I, Constants.DRIVE_D));
     leftMaster = new CANSparkMax(RobotMap.leftMaster , MotorType.kBrushless);
     leftSlaveA = new CANSparkMax(RobotMap.leftSlaveA , MotorType.kBrushless);
@@ -37,20 +35,21 @@ public class Drivetrain extends PIDSubsystem {
     disable();
   }
   public void setLeftReverse(boolean reverse){leftMaster.setInverted(reverse);}
-  public void shift(){
+  public static void shift(){
     if(isHigh)shift.set(Value.kForward);
      else shift.set(Value.kReverse);
      isHigh = !isHigh;
   }
   @Override public void periodic(){super.periodic();}
   public void setSpeed(final double xSpeed, final double zRotation){drive.arcadeDrive(xSpeed, zRotation);}
-  public void driveForward(double speed){ leftMaster.set(speed); rightMaster.set(speed);}
-  public void setRaw(double leftValue, double rightValue){ leftMaster.set(-leftValue); rightMaster.set(rightValue); }
-  public double getLeftPosition(){return -leftMaster.getEncoder().getPosition();}
-  public double getLeftDistance(){return -leftMaster.getEncoder().getPosition()/6.46;}
-  public double getRightPosition(){return rightMaster.getEncoder().getPosition();}
-  public double getRightDistance(){return rightMaster.getEncoder().getPosition()/6.46;} 
-  public void zero(){ leftMaster.getEncoder().setPosition(0); rightMaster.getEncoder().setPosition(0);}
+  public static void driveForward(double speed){ leftMaster.set(speed); rightMaster.set(speed);}
+  public static void setRaw(double leftValue, double rightValue){ leftMaster.set(-leftValue); rightMaster.set(rightValue); }
+  public static double getLeftPosition(){return -leftMaster.getEncoder().getPosition();}
+  public static double getLeftDistance(){return -leftMaster.getEncoder().getPosition()/6.46;}
+  public static double getRightPosition(){return rightMaster.getEncoder().getPosition();}
+  public static double getRightDistance(){return rightMaster.getEncoder().getPosition()/6.46;}
+  public static void setPoint(double point){setSetpoint(point);} 
+  public static void zero(){ leftMaster.getEncoder().setPosition(0); rightMaster.getEncoder().setPosition(0);}
   @Override protected double getMeasurement() {return rightMaster.getEncoder().getPosition();}
   @Override protected void useOutput(double output, final double setpoint) {
     output = -output;

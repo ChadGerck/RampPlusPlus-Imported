@@ -23,15 +23,15 @@ public class TurnTo extends CommandBase {
         SmartDashboard.putNumber("testPIDOutput: ", testPIDOutput);
         testPIDOutput = Math.min(testPIDOutput, .5);
         PIDOutput = Math.max(testPIDOutput, -.5); 
-        Drivetrain.getInstance().setRaw(PIDOutput, -PIDOutput);
+        Drivetrain.setRaw(PIDOutput, -PIDOutput);
         if(PIDOutput < .05  && PIDOutput > -.05){ forceFinish = true; }
         lastError = error; 
         
         SmartDashboard.putNumber("NavX: ", NavX.getInstance().Angle());
     }
     @Override public void end(boolean interrupted) {
-        Drivetrain.getInstance().disable();
-        Drivetrain.getInstance().setSpeed(0, 0);
+        Drivetrain.disable();
+        Drivetrain.setSpeed(0, 0);
     }
     @Override public boolean isFinished(){return forceFinish;}
     public double getError(){
