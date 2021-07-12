@@ -9,12 +9,9 @@ import frc.robot.commands.ArmUp;
 import frc.robot.commands.ElevatorDown;
 import frc.robot.commands.ElevatorUp;
 import frc.robot.commands.Rotation;
-import frc.robot.commands.ManualBeltControl;
-import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shift;
 import frc.robot.commands.SpinTo;
 import frc.robot.commands.ToggleCommand;
-import frc.robot.commands.ToggleConveyor;
 import frc.robot.Utilities.Limelight;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -51,12 +48,9 @@ public class OI {
         
         armUp.whenActive(new ArmUp());
         armDown.whenActive(new ArmDown());
-        intake.whenActive(new RunIntake());
         spinTo.whenActive(new ToggleCommand(SpinTo.getInstance()));
         spin3.whenActive(new ToggleCommand(Rotation.getInstance()));
-        convPos.whenActive(new ToggleConveyor());
         shifter.whenActive(new Shift());
-        runBelt.whenActive(new ManualBeltControl());
         llState.whenActive(new CommandBase() {
             @Override public void initialize(){Limelight.getInstance().switchState();}
             @Override public boolean isFinished(){ return true; }
