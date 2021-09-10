@@ -1,62 +1,29 @@
 package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
+//import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.auto_commands.TrenchAuto;
-import frc.robot.commands.ArmDown;
-import frc.robot.commands.ArmUp;
-import frc.robot.commands.ElevatorDown;
-import frc.robot.commands.ElevatorUp;
-import frc.robot.commands.Rotation;
-import frc.robot.commands.ManualBeltControl;
-import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shift;
-import frc.robot.commands.SpinTo;
-import frc.robot.commands.ToggleCommand;
-import frc.robot.commands.ToggleConveyor;
 import frc.robot.Utilities.Limelight;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 public class OI {
     private static final double DEADZONE_LIMIT = 0.1;
-    private static final int ELEVATOR_UP_ANGLE = 0; //Xbox DPad Up
-    private static final int ELEVATOR_DOWN_ANGLE = 180; //Xbox DPad Down
 
     public static XboxController xbox,xbox1;
-    public static Trigger armUp, armDown, intake, spinTo, spin3, convPos, runBelt, shifter, llState;
-    public static Trigger spinCommand;
-    public static POVButton elevUp, elevDown;
+    public static Trigger shifter, llState;
+    //public static Trigger spinCommand;
+    //public static POVButton elevUp, elevDown;
 
     public OI() {
         xbox = new XboxController(0);
         xbox1 = new XboxController(1);
-        elevUp = new POVButton(xbox, ELEVATOR_UP_ANGLE);
-        elevDown = new POVButton(xbox, ELEVATOR_DOWN_ANGLE);
-        elevUp.whenActive(new ElevatorUp());
-        elevDown.whenActive(new ElevatorDown());
-        spinCommand = new POVButton(xbox, 90);
-        spinCommand.whenActive(new TrenchAuto());
 
-        armUp  =new Trigger(){@Override public boolean get(){return xbox.getRawButton(4);}};//Y Button
-        armDown=new Trigger(){@Override public boolean get(){return xbox.getRawButton(3);}};//X Button
-        intake =new Trigger(){@Override public boolean get(){return xbox.getRawButton(1);}};//A Button
-        spinTo =new Trigger(){@Override public boolean get(){return xbox.getRawButton(2);}};//B Button
-        spin3  =new Trigger(){@Override public boolean get(){return xbox.getRawButton(6);}};//Right Bumper
-        convPos=new Trigger(){@Override public boolean get(){return xbox.getRawButton(5);}};//Left Bumper
         shifter=new Trigger(){@Override public boolean get(){return xbox.getStickButtonPressed(Hand.kLeft );}};//LS Click
         llState=new Trigger(){@Override public boolean get(){return xbox.getStickButtonPressed(Hand.kRight);}};//RS Click
-        runBelt=new Trigger(){@Override public boolean get(){return xbox.getRawAxis(3) > Constants.BELT_DEAD_ZONE || xbox.getRawAxis(2) > Constants.BELT_DEAD_ZONE;}};
         
-        armUp.whenActive(new ArmUp());
-        armDown.whenActive(new ArmDown());
-        intake.whenActive(new RunIntake());
-        spinTo.whenActive(new ToggleCommand(SpinTo.getInstance()));
-        spin3.whenActive(new ToggleCommand(Rotation.getInstance()));
-        convPos.whenActive(new ToggleConveyor());
         shifter.whenActive(new Shift());
-        runBelt.whenActive(new ManualBeltControl());
         llState.whenActive(new CommandBase() {
             @Override public void initialize(){Limelight.getInstance().switchState();}
             @Override public boolean isFinished(){ return true; }
